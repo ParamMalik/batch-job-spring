@@ -1,0 +1,10 @@
+spring:
+  r2dbc.url: r2dbc:postgresql://localhost:5432/billdb
+  r2dbc.password: Trantor123
+  r2dbc.username: postgres
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/billdb
+    change-log: classpath:db.changelog/db.changelog-master.xml
+    user: postgres
+    password: Trantor123
+    enabled: true
