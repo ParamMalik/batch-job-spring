@@ -1,3 +1,5 @@
+server:
+  port: 8003
 spring:
   r2dbc.url: r2dbc:postgresql://localhost:5432/billdb
   r2dbc.password: Trantor123
@@ -8,3 +10,5 @@ spring:
     user: postgres
     password: Trantor123
     enabled: true
+aes:
+  key: yhvAwcCyoSB9utWu+fPO8g==

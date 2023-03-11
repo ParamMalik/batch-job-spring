@@ -4,6 +4,7 @@ import com.trantor.bill.dao.BillRepository;
 import com.trantor.bill.dto.BillDto;
 import com.trantor.bill.mapper.BillMapper;
 import com.trantor.bill.service.BillService;
+import com.trantor.bill.util.AESUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -28,6 +29,10 @@ public class BillServiceImpl implements BillService {
     @Override
     public Flux<BillDto> getAllBillsForLoan(Long loanId) {
         return billRepository.findAllByLoanId(loanId)
-                .map(billMapper::toBillDto);
+                .map(bill -> {
+                    String decrypt = AESUtils.decrypt(bill.getStatus());
+                    bill.setStatus(decrypt);
+                    return billMapper.toBillDto(bill);
+                });
     }
 }

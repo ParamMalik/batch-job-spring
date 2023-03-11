@@ -1,0 +1,19 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    bill:
+      url: jdbc:postgresql://localhost:5432/billdb
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: Trantor123
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: create
+      properties:
+        hibernate:
+          format_sql: true
+  batch:
+    jdbc:
+      initialize-schema: always

@@ -2,6 +2,7 @@ package com.trantor.bill.controller;
 
 import com.trantor.bill.dto.BillDto;
 import com.trantor.bill.service.BillService;
+import com.trantor.bill.util.AESUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,25 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 public class BillController {
+
+//    public static void main(String[] args) {
+//        try {
+//            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+//            keyGenerator.init(128); // 128 bits
+//            SecretKey secretKey = keyGenerator.generateKey();
+//            byte[] keyBytes = secretKey.getEncoded();
+//            System.out.println("AES Key (Base64 encoded): " + Base64.getEncoder().encodeToString(keyBytes));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     private final BillService billService;
 
     @PostMapping("/bill")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Map<String , Long>> createBill(@RequestBody BillDto billDto){
+        String encrypt = AESUtils.encrypt(billDto.getStatus());
+        billDto.setStatus(encrypt);
         return billService.createBill(billDto);
     }
 
