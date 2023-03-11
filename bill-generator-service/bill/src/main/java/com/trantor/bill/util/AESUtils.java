@@ -1,5 +1,7 @@
 package com.trantor.bill.util;
 
+import com.trantor.bill.exception.DecryptionException;
+import com.trantor.bill.exception.EncryptionException;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@ public class AESUtils {
         log.error("Trying to access util class.");
         throw new IllegalAccessException("Access Denied to Util Class.");
     }
+
     @Setter
     private static String aesKey;
 
@@ -28,7 +31,7 @@ public class AESUtils {
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             log.error("Error encrypting : {}", e.getMessage());
-            throw new RuntimeException("Error encrypting value", e);
+            throw new EncryptionException("Error encrypting value", e);
         }
     }
 
@@ -42,7 +45,7 @@ public class AESUtils {
             return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("Error decrypting : {}", e.getMessage());
-            throw new RuntimeException("Error decrypting value", e);
+            throw new DecryptionException("Error decrypting value", e);
         }
     }
 }
