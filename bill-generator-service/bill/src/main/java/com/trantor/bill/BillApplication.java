@@ -18,7 +18,6 @@ public class BillApplication {
 
     @PostConstruct
     public void init() {
-        AESUtils.setKEY(aesKey);
+        AESUtils.setAesKey(aesKey);
     }
-
 }
